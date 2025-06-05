@@ -119,16 +119,22 @@ def second_page():
         plt.title("Satisfaction Distribution", color='#FFCF50')
         st.pyplot(plt)
 
-        plt.figure(figsize=(8, 6))
-        df.groupby('type_of_travel')['satisfaction_num'].mean().plot(kind='bar', color=sns.color_palette("YlGn", 2))
-        style_plot("Customer Satisfaction by Gender", "Gender", "Satisfaction")
+        custom_colors = ["#A4B465", "#FEFAE0"]
+        plt.figure(figsize=(10, 6))
+        plt.gca().set_facecolor('#626F47')
+        plt.gcf().set_facecolor('#626F47')
+        sns.kdeplot(data=df, x='age', hue='satisfaction', fill=True,common_norm=False, palette=custom_colors)
+        plt.title("Age Distribution by Satisfaction", color='#FFCF50')
+        plt.xlabel('Age', color='#FEFAE0')
+        plt.ylabel('Density', color='#FEFAE0')
+        plt.tick_params(colors='#FEFAE0')
         st.pyplot(plt)
 
     with col2:
 
         plt.figure(figsize=(8, 6))
 
-        df.groupby('type_of_travel')['satisfaction_num'].mean().plot(kind='bar', color=sns.color_palette("YlGn", 2))
+        df.groupby('customer_type')['satisfaction_num'].mean().plot(kind='bar', color=sns.color_palette("YlGn", 2))
         style_plot("Satisfaction by Customer Type", "Customer Type", "Satisfaction")
         st.pyplot(plt)
 
